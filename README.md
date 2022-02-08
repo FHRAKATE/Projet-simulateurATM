@@ -17,7 +17,7 @@ Affichage des soldes de tout les comptes du client.
 
 Effectuer un Retrait: 	Sélectionnez le compte source, entrez le montant et appuyer sur "Valider".
 
-Effectuer un Dépôt: 	 	Sélectionnez le compte cible, entrez le montant et appuyer sur "Valider"
+Effectuer un Dépôt:     Sélectionnez le compte cible, entrez le montant et appuyer sur "Valider"
 
 Effectuer un Virement: Sélectionnez le compte source, sélectionnez le compte cible, entrez le montant et appuyer sur "Valider".
 
@@ -40,5 +40,3 @@ Transactions:		Affichage de la liste des transactions de tout les comptes enregi
 
 Prélèvements:		Sélectionnez un compte hypothéquecaire enregistré dans le système comme compte source, entrez le montant à prélever et appuyez sur "Valider".
 
-# License
-MIT
