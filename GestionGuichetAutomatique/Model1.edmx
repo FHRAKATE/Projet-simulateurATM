@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="guichetAutomatiqueModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="CodeClient" />
+          </Key>
+          <Property Name="CodeClient" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="NumeroNIP" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="NomClient" Type="nvarchar" MaxLength="20" />
+          <Property Name="PrenomClient" Type="nvarchar" MaxLength="20" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Courriel" Type="nvarchar" MaxLength="50" />
+          <Property Name="StatusClient" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Compte">
+          <Key>
+            <PropertyRef Name="NumeroCompte" />
+          </Key>
+          <Property Name="NumeroCompte" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateOuverture" Type="date" />
+          <Property Name="SoldeCompte" Type="float" />
+          <Property Name="CodeClient" Type="nvarchar" MaxLength="10" />
+          <Property Name="IDTypeCompte" Type="int" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="NumroTransaction" />
+          </Key>
+          <Property Name="NumroTransaction" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateTransaction" Type="date" />
+          <Property Name="MontantTransaction" Type="float" />
+          <Property Name="CompteSource" Type="int" />
+          <Property Name="CompteDestination" Type="int" />
+          <Property Name="CodeTypeTransaction" Type="int" />
+        </EntityType>
+        <EntityType Name="typeCompte">
+          <Key>
+            <PropertyRef Name="IDTypeCompte" />
+          </Key>
+          <Property Name="IDTypeCompte" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeCompte" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="TypeTransaction">
+          <Key>
+            <PropertyRef Name="CodeTypeTransaction" />
+          </Key>
+          <Property Name="CodeTypeTransaction" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeTransaction" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_Compte_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Compte" Type="Self.Compte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="CodeClient" />
+            </Principal>
+            <Dependent Role="Compte">
+              <PropertyRef Name="CodeClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compte_typeCompte">
+          <End Role="typeCompte" Type="Self.typeCompte" Multiplicity="0..1" />
+          <End Role="Compte" Type="Self.Compte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeCompte">
+              <PropertyRef Name="IDTypeCompte" />
+            </Principal>
+            <Dependent Role="Compte">
+              <PropertyRef Name="IDTypeCompte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Compte">
+          <End Role="Compte" Type="Self.Compte" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compte">
+              <PropertyRef Name="NumeroCompte" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CompteSource" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Compte1">
+          <End Role="Compte" Type="Self.Compte" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compte">
+              <PropertyRef Name="NumeroCompte" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CompteDestination" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_TypeTransaction">
+          <End Role="TypeTransaction" Type="Self.TypeTransaction" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeTransaction">
+              <PropertyRef Name="CodeTypeTransaction" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CodeTypeTransaction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="guichetAutomatiqueModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compte" EntityType="Self.Compte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typeCompte" EntityType="Self.typeCompte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeTransaction" EntityType="Self.TypeTransaction" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Compte_Client" Association="Self.FK_Compte_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Compte" EntitySet="Compte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compte_typeCompte" Association="Self.FK_Compte_typeCompte">
+            <End Role="typeCompte" EntitySet="typeCompte" />
+            <End Role="Compte" EntitySet="Compte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Compte" Association="Self.FK_Transaction_Compte">
+            <End Role="Compte" EntitySet="Compte" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Compte1" Association="Self.FK_Transaction_Compte1">
+            <End Role="Compte" EntitySet="Compte" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_TypeTransaction" Association="Self.FK_Transaction_TypeTransaction">
+            <End Role="TypeTransaction" EntitySet="TypeTransaction" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="guichetAutomatiqueModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="CodeClient" />
+          </Key>
+          <Property Name="CodeClient" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumeroNIP" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="NomClient" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PrenomClient" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Courriel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusClient" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Comptes" Relationship="Self.FK_Compte_Client" FromRole="Client" ToRole="Compte" />
+        </EntityType>
+        <EntityType Name="Compte">
+          <Key>
+            <PropertyRef Name="NumeroCompte" />
+          </Key>
+          <Property Name="NumeroCompte" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateOuverture" Type="DateTime" Precision="0" />
+          <Property Name="SoldeCompte" Type="Double" />
+          <Property Name="CodeClient" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IDTypeCompte" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Compte_Client" FromRole="Compte" ToRole="Client" />
+          <NavigationProperty Name="typeCompte" Relationship="Self.FK_Compte_typeCompte" FromRole="Compte" ToRole="typeCompte" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transaction_Compte" FromRole="Compte" ToRole="Transaction" />
+          <NavigationProperty Name="Transactions1" Relationship="Self.FK_Transaction_Compte1" FromRole="Compte" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="NumroTransaction" />
+          </Key>
+          <Property Name="NumroTransaction" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateTransaction" Type="DateTime" Precision="0" />
+          <Property Name="MontantTransaction" Type="Double" />
+          <Property Name="CompteSource" Type="Int32" />
+          <Property Name="CompteDestination" Type="Int32" />
+          <Property Name="CodeTypeTransaction" Type="Int32" />
+          <NavigationProperty Name="Compte" Relationship="Self.FK_Transaction_Compte" FromRole="Transaction" ToRole="Compte" />
+          <NavigationProperty Name="Compte1" Relationship="Self.FK_Transaction_Compte1" FromRole="Transaction" ToRole="Compte" />
+          <NavigationProperty Name="TypeTransaction" Relationship="Self.FK_Transaction_TypeTransaction" FromRole="Transaction" ToRole="TypeTransaction" />
+        </EntityType>
+        <EntityType Name="typeCompte">
+          <Key>
+            <PropertyRef Name="IDTypeCompte" />
+          </Key>
+          <Property Name="IDTypeCompte" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeCompte1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comptes" Relationship="Self.FK_Compte_typeCompte" FromRole="typeCompte" ToRole="Compte" />
+        </EntityType>
+        <EntityType Name="TypeTransaction">
+          <Key>
+            <PropertyRef Name="CodeTypeTransaction" />
+          </Key>
+          <Property Name="CodeTypeTransaction" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeTransaction1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transaction_TypeTransaction" FromRole="TypeTransaction" ToRole="Transaction" />
+        </EntityType>
+        <Association Name="FK_Compte_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Compte" Type="Self.Compte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="CodeClient" />
+            </Principal>
+            <Dependent Role="Compte">
+              <PropertyRef Name="CodeClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compte_typeCompte">
+          <End Role="typeCompte" Type="Self.typeCompte" Multiplicity="0..1" />
+          <End Role="Compte" Type="Self.Compte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeCompte">
+              <PropertyRef Name="IDTypeCompte" />
+            </Principal>
+            <Dependent Role="Compte">
+              <PropertyRef Name="IDTypeCompte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Compte">
+          <End Role="Compte" Type="Self.Compte" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compte">
+              <PropertyRef Name="NumeroCompte" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CompteSource" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Compte1">
+          <End Role="Compte" Type="Self.Compte" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compte">
+              <PropertyRef Name="NumeroCompte" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CompteDestination" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_TypeTransaction">
+          <End Role="TypeTransaction" Type="Self.TypeTransaction" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeTransaction">
+              <PropertyRef Name="CodeTypeTransaction" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="CodeTypeTransaction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="guichetAutomatiqueEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Comptes" EntityType="Self.Compte" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="typeComptes" EntityType="Self.typeCompte" />
+          <EntitySet Name="TypeTransactions" EntityType="Self.TypeTransaction" />
+          <AssociationSet Name="FK_Compte_Client" Association="Self.FK_Compte_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Compte" EntitySet="Comptes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compte_typeCompte" Association="Self.FK_Compte_typeCompte">
+            <End Role="typeCompte" EntitySet="typeComptes" />
+            <End Role="Compte" EntitySet="Comptes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Compte" Association="Self.FK_Transaction_Compte">
+            <End Role="Compte" EntitySet="Comptes" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Compte1" Association="Self.FK_Transaction_Compte1">
+            <End Role="Compte" EntitySet="Comptes" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_TypeTransaction" Association="Self.FK_Transaction_TypeTransaction">
+            <End Role="TypeTransaction" EntitySet="TypeTransactions" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="guichetAutomatiqueModelStoreContainer" CdmEntityContainer="guichetAutomatiqueEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="guichetAutomatiqueModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="CodeClient" ColumnName="CodeClient" />
+                <ScalarProperty Name="NumeroNIP" ColumnName="NumeroNIP" />
+                <ScalarProperty Name="NomClient" ColumnName="NomClient" />
+                <ScalarProperty Name="PrenomClient" ColumnName="PrenomClient" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Courriel" ColumnName="Courriel" />
+                <ScalarProperty Name="StatusClient" ColumnName="StatusClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comptes">
+            <EntityTypeMapping TypeName="guichetAutomatiqueModel.Compte">
+              <MappingFragment StoreEntitySet="Compte">
+                <ScalarProperty Name="NumeroCompte" ColumnName="NumeroCompte" />
+                <ScalarProperty Name="DateOuverture" ColumnName="DateOuverture" />
+                <ScalarProperty Name="SoldeCompte" ColumnName="SoldeCompte" />
+                <ScalarProperty Name="CodeClient" ColumnName="CodeClient" />
+                <ScalarProperty Name="IDTypeCompte" ColumnName="IDTypeCompte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="guichetAutomatiqueModel.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="NumroTransaction" ColumnName="NumroTransaction" />
+                <ScalarProperty Name="DateTransaction" ColumnName="DateTransaction" />
+                <ScalarProperty Name="MontantTransaction" ColumnName="MontantTransaction" />
+                <ScalarProperty Name="CompteSource" ColumnName="CompteSource" />
+                <ScalarProperty Name="CompteDestination" ColumnName="CompteDestination" />
+                <ScalarProperty Name="CodeTypeTransaction" ColumnName="CodeTypeTransaction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typeComptes">
+            <EntityTypeMapping TypeName="guichetAutomatiqueModel.typeCompte">
+              <MappingFragment StoreEntitySet="typeCompte">
+                <ScalarProperty Name="IDTypeCompte" ColumnName="IDTypeCompte" />
+                <ScalarProperty Name="TypeCompte1" ColumnName="TypeCompte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeTransactions">
+            <EntityTypeMapping TypeName="guichetAutomatiqueModel.TypeTransaction">
+              <MappingFragment StoreEntitySet="TypeTransaction">
+                <ScalarProperty Name="CodeTypeTransaction" ColumnName="CodeTypeTransaction" />
+                <ScalarProperty Name="TypeTransaction1" ColumnName="TypeTransaction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

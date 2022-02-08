@@ -1,0 +1,77 @@
+﻿<Window x:Class="GestionGuichetAutomatique.Guichet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestionGuichetAutomatique"
+        mc:Ignorable="d"
+        Title="Espace Client" Height="471" Width="958" Background="#FFEBE7F7"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="icons8_bank.ico">
+    <Grid Margin="0,0,-6,1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="157*"/>
+            <ColumnDefinition Width="263*"/>
+            <ColumnDefinition Width="36*"/>
+            <ColumnDefinition Width="311*"/>
+            <ColumnDefinition Width="156*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnQuitter" Content="Deconexion&#xD;&#xA;" HorizontalAlignment="Left" Height="28" Margin="27,25,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click" Grid.Column="7" RenderTransformOrigin="0.75,1.08" Foreground="#FF0C0B0B" Background="#FFCF1E1E" FontWeight="Bold" FontSize="14"/>
+        <Button x:Name="btnSoumettre" Content="Valider " HorizontalAlignment="Left" Height="30" Margin="65,350,0,0" VerticalAlignment="Top" Width="110" Grid.Column="6" RenderTransformOrigin="0.1,-0.333" Click="btnSoumettre_Click" Background="#FFA42072" Foreground="#FF111111" FontWeight="Bold" FontSize="14"/>
+        <Button x:Name="btnEtatCpt" Content="Afficher " Grid.Column="6" HorizontalAlignment="Left" Height="30" Margin="214,350,0,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="0.594,1.233" Grid.ColumnSpan="2" Click="btnEtatCpt_Click" Background="#FFA42072" Foreground="#FF0C0B0B" FontSize="14" FontWeight="Bold"/>
+        <GroupBox x:Name="grpTypeCpt" Header="Choisir un Compte&#xA;" HorizontalAlignment="Left" Height="119" Margin="20,90,0,0" VerticalAlignment="Top" Width="330" Grid.Column="2" Foreground="#FFA42072" FontWeight="Bold" Grid.ColumnSpan="3">
+            <Grid HorizontalAlignment="Left" Margin="0,-6,0,7" Width="316">
+                <ComboBox x:Name="CmbTypeCpt" HorizontalAlignment="Left" Height="23" Margin="159,15,0,0" VerticalAlignment="Top" Width="125" IsSynchronizedWithCurrentItem="true" ItemsSource="{Binding}" DisplayMemberPath="TypeCompte1" SelectionChanged="CmbTypeCpt_SelectionChanged"/>
+                <Label Content="Type de compte :" HorizontalAlignment="Left" Height="30" Margin="10,12,0,0" VerticalAlignment="Top" Width="106"/>
+                <ComboBox x:Name="CmbNumCpte" HorizontalAlignment="Left" Height="23" Margin="158,49,0,0" VerticalAlignment="Top" Width="125" IsSynchronizedWithCurrentItem="true" ItemsSource="{Binding}" DisplayMemberPath="NumeroCompte" />
+                <Label Content="Numéro du compte :" HorizontalAlignment="Left" Height="25" Margin="10,48,0,0" VerticalAlignment="Top" Width="130"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="grpTypeTrans" Header="Choisir une Opération&#xA;" HorizontalAlignment="Left" Height="90" Margin="20,218,0,0" VerticalAlignment="Top" Width="330" Foreground="#FFA42072" FontWeight="Bold" Grid.ColumnSpan="5">
+            <Grid x:Name="gridTrans" HorizontalAlignment="Left" Height="53" Margin="10,0,-2,-2" VerticalAlignment="Top" Width="285">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0*"/>
+                    <ColumnDefinition Width="119*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <RadioButton x:Name="rbDepot" Content="Dépot" HorizontalAlignment="Left" Margin="9,4,0,24" Width="80"  Grid.ColumnSpan="2" IsChecked="True"  Click="rbDepot_Click"/>
+                <RadioButton x:Name="rbRetrait" Content="Retrait" HorizontalAlignment="Left" Height="25" Margin="9,32,0,0" VerticalAlignment="Top" Width="80"  Grid.ColumnSpan="2" Click="rbRetrait_Click"/>
+                <RadioButton x:Name="rbPaieFact" Content="Paiement Facture" HorizontalAlignment="Left" Height="25" Margin="124,25,0,0" VerticalAlignment="Top" Width="130" Grid.Column="1" Grid.ColumnSpan="2" Click="rbPaieFact_Click"/>
+                <RadioButton x:Name="rbVirment" Content="Transfert" HorizontalAlignment="Left" Height="25" Margin="124,0,0,0" VerticalAlignment="Top" Width="80" Grid.Column="1" RenderTransformOrigin="0.625,0.4" Click="rbVirment_Click"  />
+            </Grid>
+        </GroupBox>
+        <TextBox x:Name="txtMontant" HorizontalAlignment="Left" Height="22" Margin="40,66,0,0" VerticalAlignment="Top" Width="114" FontWeight="Bold" FontSize="16" Grid.Column="4" PreviewKeyDown="txtMontant_PreviewKeyDown"  />
+        <Label Content="Montant :" HorizontalAlignment="Left" Height="30" Margin="4,56,0,0" VerticalAlignment="Top" Width="92" FontWeight="Bold" Grid.Column="3" FontSize="14"/>
+        <GroupBox x:Name="grpDest" Grid.ColumnSpan="3" Header="Compte Destination&#xD;&#xA;" HorizontalAlignment="Left" Height="95" Margin="20,319,0,0" VerticalAlignment="Top" Width="330" Grid.Column="2" Foreground="#FFA42072" FontWeight="Bold">
+            <Grid HorizontalAlignment="Left" Margin="0,-14,-2,-3" Width="320">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="52*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblTypeDest" Content="Type Compte :" HorizontalAlignment="Left" Height="25" Margin="0,7,0,0" VerticalAlignment="Top" Width="130" FontWeight="Bold" Visibility="Visible" Grid.ColumnSpan="4" Grid.Column="1"/>
+                <ComboBox x:Name="CmbTypeCptDest" HorizontalAlignment="Left" Height="23" Margin="86,10,0,0" VerticalAlignment="Top" Width="140"  Grid.Column="4" Visibility="Visible" IsSynchronizedWithCurrentItem="true" ItemsSource="{Binding}" DisplayMemberPath="TypeCompte1" SelectionChanged="CmbCompteDest_SelectionChanged" FontWeight="Bold">
+                </ComboBox>
+                <Label x:Name="lblCptDest1" Content="Numéro du compte :" HorizontalAlignment="Left" Height="25" Margin="0,40,0,0" VerticalAlignment="Top" Width="130" FontWeight="Bold" Visibility="Visible" Grid.ColumnSpan="4" Grid.Column="1"/>
+                <ComboBox x:Name="CmbNumCptDest" HorizontalAlignment="Left" Height="23" Margin="86,42,0,0" VerticalAlignment="Top" Width="140" Grid.Column="4" Visibility="Visible" IsSynchronizedWithCurrentItem="true" ItemsSource="{Binding}" DisplayMemberPath="NumeroCompte" FontWeight="Bold"/>
+            </Grid>
+        </GroupBox>
+        <DataGrid x:Name="dgComptes" AutoGenerateColumns="False" Grid.ColumnSpan="4" Grid.Column="4" HorizontalAlignment="Left" Height="203" Margin="233,97,0,0" VerticalAlignment="Top" Width="507" Loaded="dgComptes_Loaded" ItemsSource="{Binding}" Background="#ebe7f7"   AlternatingRowBackground="#FFEAF1D0" RowBackground="#FFF1E3E3">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Client" Binding="{Binding CodeClient}" />
+                <DataGridTextColumn Header="Numéro de Compte" Binding="{Binding NumeroCompte}" />
+                <DataGridTextColumn Header="Type de Compte" Binding="{Binding TypeCompte1}" />
+                <DataGridTextColumn Header="Solde de Compte" Binding="{Binding SoldeCompte}" />
+                <DataGridTextColumn Header="Date Ouverture" Binding="{Binding DateOuverture}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="$" Height="23" HorizontalAlignment="Left" Margin="136,65,0,0" x:Name="label6" VerticalAlignment="Top" Width="18" FontFamily="Script MT" FontSize="14" RenderTransformOrigin="-13.468,4.165" Grid.Column="4" Foreground="#FFA42072" FontWeight="Bold" />
+        <TextBlock x:Name="lblClient" HorizontalAlignment="Center" Margin="53,14,117,0" TextWrapping="Wrap" Text="Bienvenue" VerticalAlignment="Top" FontSize="24"
+            IsEnabled="False" Width="440" TextAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="3" Grid.Column="4" Height="64" Foreground="#FFA42072"/>
+
+    </Grid>
+</Window>

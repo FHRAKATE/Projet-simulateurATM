@@ -1,0 +1,35 @@
+﻿<Window x:Class="GestionGuichetAutomatique.AjouterCompte"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestionGuichetAutomatique"
+        mc:Ignorable="d"
+        Title="AjouterCompte" Height="316" Width="583" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="#FFEBE7F7"   Icon="icons8_bank.ico">
+    <Grid Margin="0,0,4,0">
+        <ComboBox x:Name="CmbTypeCpt" HorizontalAlignment="Left" Height="25" Margin="195,170,0,0" VerticalAlignment="Top" Width="135" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="TypeCompte1"/>
+        <Label Content="Type de compte :"  Foreground="#FFA42072" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="34,168,0,0" VerticalAlignment="Top" Width="132" HorizontalContentAlignment="Right"/>
+        <Label Content="Date Ouverture :"  Foreground="#FFA42072" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="33,113,0,0" VerticalAlignment="Top" Width="131" HorizontalContentAlignment="Right"/>
+        <Label Content="Solde du Compte :" Foreground="#FFA42072" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="30,218,0,0" VerticalAlignment="Top" Width="140" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="txtSoldeCpt" HorizontalAlignment="Left" Height="25" Margin="195,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" PreviewKeyDown="txtSoldeCpt_PreviewKeyDown"/>
+        <DatePicker x:Name="dateOvCompte" HorizontalAlignment="Left" Height="25" Margin="195,115,0,0" VerticalAlignment="Top" Width="135"/>
+        <Label Content="Code de Client :" Foreground="#FFA42072" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="33,64,0,0" VerticalAlignment="Top" Width="129" HorizontalContentAlignment="Right"/>
+        <Button x:Name="btnReset" Content="Initialiser" HorizontalAlignment="Left" Margin="405,115,0,0" VerticalAlignment="Top" Width="115" Height="25" Click="btnReset_Click" FontWeight="Bold"  Background="#FFA42072" FontSize="14"/>
+        <ComboBox x:Name="cmbCodeClt" HorizontalAlignment="Left" Height="25" Margin="195,65,0,0" VerticalAlignment="Top" Width="135" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=PrenomClient}"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding Path=NomClient}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button x:Name="btnQuitter" Content="Quitter" HorizontalAlignment="Left" Height="25" Margin="405,212,0,0" VerticalAlignment="Top" Width="115" Click="btnQuitter_Click" Background="#FFCF1E1E" FontWeight="Bold" FontSize="14"/>
+        <Button x:Name="btnAddCpt" Content="Ajouter" HorizontalAlignment="Left" Height="25" Margin="405,65,0,0" VerticalAlignment="Top" Width="115" Click="btnAddCpt_Click" FontWeight="Bold"   Background="#FFA42072" FontSize="14"/>
+        <Label Content="$" Height="23" HorizontalAlignment="Left" Margin="671,111,0,0" x:Name="label6" VerticalAlignment="Top" Width="18" FontFamily="Script MT" FontSize="14" RenderTransformOrigin="-13.468,4.165" />
+        <Label x:Name="label" Content="Effectuer Paiement" HorizontalAlignment="Left" Margin="191,13,0,0" VerticalAlignment="Top" FontWeight="Bold"  FontSize="18" Foreground="#FFA42072" Height="34"/>
+
+    </Grid>
+</Window>

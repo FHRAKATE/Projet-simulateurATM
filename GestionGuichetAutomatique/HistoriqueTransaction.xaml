@@ -1,0 +1,38 @@
+﻿<Window x:Class="GestionGuichetAutomatique.HistoriqueTransaction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestionGuichetAutomatique"
+        mc:Ignorable="d"
+        Title="Historique des Transactions" Height="450" Width="750"  Background="#FFEBE7F7"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="icons8_bank.ico">
+    <Grid>
+        <ComboBox x:Name="CmbClient" HorizontalAlignment="Left" Height="30" Margin="132,41,0,0" VerticalAlignment="Top" Width="160" IsSynchronizedWithCurrentItem="true"  ItemsSource="{Binding}" SelectionChanged="CmbClient_SelectionChanged" SelectedIndex="0"   RenderTransformOrigin="0.647,-0.5" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=PrenomClient}"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding Path=NomClient}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="Client :" HorizontalAlignment="Left" Height="30" Margin="45,42,0,0" VerticalAlignment="Top" Width="75" Foreground="#FFA42072" FontWeight="Bold" />
+        <ComboBox x:Name="CmbTypeCompte" HorizontalAlignment="Left" Height="30" Margin="593,38,0,0" VerticalAlignment="Top" Width="115" IsSynchronizedWithCurrentItem="true"  ItemsSource="{Binding}"  DisplayMemberPath="TypeCompte1"  SelectedIndex="0"  />
+        <Label Content="Type de Compte :" HorizontalAlignment="Left" Height="30" Margin="465,41,0,0" VerticalAlignment="Top" Width="112" HorizontalContentAlignment="Right" Foreground="#FFA42072" FontWeight="Bold"  />
+        <Button x:Name="btnAfficher" Content="Afficher" HorizontalAlignment="Left" Height="30" Margin="246,347,0,0" VerticalAlignment="Top" Click="btnAfficher_Click" Width="110"   Background="#FFA42072" Foreground="#FF080808" FontWeight="Bold" FontSize="14"/>
+        <DataGrid x:Name="dgTransactions" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="230" Margin="45,102,0,0" VerticalAlignment="Top" Width="670" ItemsSource="{Binding}" Background="#ebe7f7"   AlternatingRowBackground="#FFEAF1D0" RowBackground="#FFF1E3E3">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Numéro Transaction" Binding="{Binding NumroTransaction}" />
+                <DataGridTextColumn Header="Montant" Binding="{Binding MontantTransaction}" />
+                <DataGridTextColumn Header="Compte Source" Binding="{Binding CompteSource}" />
+                <DataGridTextColumn Header="Comte Destination" Binding="{Binding CompteDestination}" />
+                <DataGridTextColumn Header="Type de Transaction" Binding="{Binding TypeTransaction1}" />
+                <DataGridTextColumn Header="Date de Transaction" Binding="{Binding DateTransaction}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Quitter" HorizontalAlignment="Left" Margin="435,347,0,0" VerticalAlignment="Top" Width="110" Height="28" Click="Button_Click" Background="#FFA42072" Foreground="#FF060606" FontWeight="Bold" FontSize="14"/>
+
+    </Grid>
+</Window>

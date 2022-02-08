@@ -1,0 +1,48 @@
+﻿<Window x:Class="GestionGuichetAutomatique.PreleverMontantHypothec"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestionGuichetAutomatique"
+        mc:Ignorable="d"
+        Title="Prélèvement Hypothecaire" Background="#FFEBE7F7" Height="450" Width="700" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="icons8_bank.ico" >
+    <Grid Margin="0,-1,0,1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="145*"/>
+            <ColumnDefinition Width="549*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgListHypothec" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="190" Margin="67,143,0,0" VerticalAlignment="Top" Width="565" Background="#ebe7f7"  ItemsSource="{Binding}" SelectionChanged="dgListHypothec_SelectionChanged" SelectedCellsChanged="dgListHypothec_SelectedCellsChanged" MouseDoubleClick="dgListHypothec_MouseDoubleClick"    AlternatingRowBackground="#FFEAF1D0" RowBackground="#FFF1E3E3" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Client" Binding="{Binding CodeClient}" />
+                <DataGridTextColumn Header="Numéro de Compte" Binding="{Binding NumeroCompte}" />
+                <DataGridTextColumn Header="Solde de Compte" Binding="{Binding SoldeCompte}" />
+                <DataGridTextColumn Header="Date Ouverture" Binding="{Binding DateOuverture}" />
+                <DataGridTextColumn Header="Type de Compte" Binding="{Binding TypeCompte1}" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox x:Name="cmbClient" HorizontalAlignment="Left" Height="25" Margin="52,65,0,0" VerticalAlignment="Top" Width="135" IsSynchronizedWithCurrentItem="true" ItemsSource="{Binding}" SelectedIndex="0" SelectionChanged="CmbT_SelectionChanged" Grid.Column="1">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=PrenomClient}"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding Path=NomClient}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="Nom du Client" HorizontalAlignment="Left" Height="30" Margin="62,60,0,0" VerticalAlignment="Top" Width="120" Foreground="#FFA42072" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <Label Content="Montant à prélever" HorizontalAlignment="Left" Height="30" Margin="228,94,0,0" VerticalAlignment="Top" Width="120" Foreground="#FFA42072" FontWeight="Bold" Grid.Column="1"/>
+        <TextBox x:Name="txtMontant" HorizontalAlignment="Left" Height="25" Margin="365,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewKeyDown="txtMontant_PreviewKeyDown" Grid.Column="1"/>
+        <ComboBox x:Name="cmbNumCpt" HorizontalAlignment="Left" Height="25" Margin="52,100,0,0" VerticalAlignment="Top" Width="135"  ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="NumeroCompte" SelectionChanged="cmbNumCpt_SelectionChanged" Grid.Column="1"/>
+        <Label Content="Compte Hypothécaire" HorizontalAlignment="Left" Height="30" Margin="62,95,0,0" VerticalAlignment="Top" Width="210" Foreground="#FFA42072" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnPreleve" Content="Valider" HorizontalAlignment="Left" Height="25" Margin="87,360,0,0" VerticalAlignment="Top" Width="100" Click="btnPreleve_Click" Background="#FFA42072" Foreground="#FF0E0D0D" FontSize="14" FontWeight="Bold" Grid.Column="1"/>
+        <Button Content="Quitter" HorizontalAlignment="Left" Height="25" Margin="220,360,0,0" VerticalAlignment="Top" Width="95" Click="Button_Click" RenderTransformOrigin="0.5,0.217" Background="#FFA42072" Foreground="#FF0A0909" FontSize="14" FontWeight="Bold" Grid.Column="1"/>
+        <Label Content="Solde du Compte" HorizontalAlignment="Left" Height="25" Margin="229,61,0,0" VerticalAlignment="Top" Width="125" Foreground="#FFA42072" FontWeight="Bold" Grid.Column="1"/>
+        <TextBox x:Name="txtSoldeCpt" HorizontalAlignment="Left" Height="25" Margin="365,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" FontWeight="Bold" Grid.Column="1"/>
+        <Label Content="$" Height="27" Foreground="#FFA42072" HorizontalAlignment="Left" Margin="467,99,0,0" x:Name="label6" VerticalAlignment="Top" Width="18" FontFamily="Script MT" FontSize="14" RenderTransformOrigin="-13.468,4.165" Grid.Column="1" FontWeight="Bold" />
+        <Label x:Name="label" Foreground="#FFA42072" Content="Prélèvement Montant Hypothecaire" HorizontalAlignment="Left" Margin="69,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1" />
+
+    </Grid>
+</Window>
