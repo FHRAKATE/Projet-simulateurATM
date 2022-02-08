@@ -25,9 +25,8 @@ Effectuer un Paiement:	Sélectionnez le compte source, entrez le montant et appu
 
 # Fonctionalités administrateur
 Gestion:
-	Ajouter argent papier:				Entrez le montant a ajouter au guichet et appuyez sur "Valider".
-	
-	Montant disponnible:			  	Affichage du montant disponnible dans le guichet pour les retraits.
+	Ajouter argent papier:				Affichage du montant disponnible dans le guichet pour les retraits.
+	                                                Entrez le montant a ajouter au guichet et appuyez sur "Valider".		  	
 	
 	Payer intérêts des comptes épargnes:		Appuyer sur le boutton pour éffectuer l'opération. 
 	
